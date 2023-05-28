@@ -55,6 +55,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openSYSinfo();
             }
         });
+
+        btn8 = (Button) findViewById(R.id.btn8);
+        btn8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openProgessDialog();
+            }
+        });
+
     }
 
     @Override
@@ -75,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
     public void openSYSinfo(){
         Intent intent = new Intent(this,configuration.class);
+        startActivity(intent);
+    }
+    public void openProgessDialog(){
+        Intent intent = new Intent(this,ProgressDialogTest.class);
         startActivity(intent);
     }
 }

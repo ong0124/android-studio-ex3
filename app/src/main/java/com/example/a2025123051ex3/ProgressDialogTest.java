@@ -24,14 +24,24 @@ public class ProgressDialogTest extends AppCompatActivity {
     Handler handler;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.activity_progress_dialog_test);
         Button execBn = (Button) findViewById(R.id.exec);
-        execBn.setOnClickListener(new OnClickListener() {
+        execBn.setOnClickListener(new OnClickListener(){
             public void onClick(View source) {
+                // 创建ProgressDialog对象
                 showDialog(PROGRESS_DIALOG);
             }
         });
-//Handler 消息处理，请补全代码，是多行。
+        //Handler 消息处理，请补全代码，是多行 
+        handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == PROGRESS_DIALOG) {
+                    pd.setProgress(progressStatus);
+                }
+            }
+        };
     }
     @Override
     public Dialog onCreateDialog(int id, Bundle status) {
@@ -69,6 +79,7 @@ public class ProgressDialogTest extends AppCompatActivity {
 // 获取耗时操作的完成百分比
                             progressStatus = doWork();
 // 发送消息到Handler，请补全代码
+                            handler.sendEmptyMessage(PROGRESS_DIALOG);
                         }
 // 如果任务已经完成
                         if (progressStatus >= 100) {
